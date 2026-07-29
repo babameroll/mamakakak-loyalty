@@ -5,13 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Mama & Kakak Kafe - Loyalty</title>
   
-  <!-- PWA & Mobile App Settings -->
-  <link rel="manifest" href="manifest.json">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="Mama&Kakak">
+  <!-- ☕ INLINE FAVICON -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☕</text></svg>">
+
+  <!-- PWA Manifest & App Icons -->
+  <link rel="manifest" href="manifest.json?v=1">
   <meta name="theme-color" content="#6b4226">
-  <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/924/924514.png">
+
+  <!-- 🟢 MODERN PWA APP SETTINGS -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="M&K Rewards">
+  <link rel="apple-touch-icon" href="loyalty-icon-192.png?v=1">
 
   <style>
     * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
@@ -85,7 +91,7 @@
   </div>
 
   <script>
-    // 🎯 PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE!
+    // 🎯 GOOGLE APPS SCRIPT WEB APP URL
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyDNzQoW7EgdDi0yDKGmpK5rQ1A4cg0YExHG96teyD9M9n7wTqZqkWBW0-Rcwh0PUGfOw/exec";
 
     function checkStamps() {
@@ -150,6 +156,18 @@
         badge.style.background = "#fff0e6";
         badge.style.color = "#6b4226";
       }
+    }
+
+    // Register Service Worker for PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js?v=1')
+          .then(reg => {
+            console.log('Loyalty PWA Service Worker Registered!', reg);
+            reg.update();
+          })
+          .catch(err => console.error('Service Worker Failed:', err));
+      });
     }
   </script>
 
