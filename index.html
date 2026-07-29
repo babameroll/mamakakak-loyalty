@@ -11,8 +11,6 @@
   <!-- PWA Manifest & App Icons -->
   <link rel="manifest" href="manifest.json?v=1">
   <meta name="theme-color" content="#6b4226">
-
-  <!-- 🟢 MODERN PWA APP SETTINGS -->
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -20,156 +18,29 @@
   <link rel="apple-touch-icon" href="loyalty-icon-192.png?v=1">
 
   <style>
-    * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background: #fdf6f0; color: #4a2c17; margin: 0; padding: 16px; display: flex; justify-content: center; min-height: 100vh; align-items: flex-start; }
-    .app-card { background: #ffffff; border: 2px solid #f2cfbb; border-radius: 24px; width: 100%; max-width: 420px; padding: 22px; box-shadow: 0 10px 30px rgba(107,66,38,0.08); }
-    .header { text-align: center; margin-bottom: 20px; }
-    .header h2 { color: #6b4226; margin: 0; font-size: 24px; font-weight: 800; }
-    .header p { color: #8c5a3c; font-size: 13px; margin-top: 4px; font-weight: 600; }
-    .pwa-banner { background: #fff0e6; border: 1px dashed #f2cfbb; border-radius: 12px; padding: 8px 12px; margin-bottom: 16px; font-size: 11px; color: #6b4226; text-align: center; font-weight: 600; }
-    .input-box { display: flex; gap: 8px; margin-bottom: 20px; }
-    .input-box input { flex: 1; padding: 12px; border: 2px solid #f2cfbb; border-radius: 14px; font-size: 16px; font-weight: 700; color: #6b4226; outline: none; text-align: center; background: #fffcf9; }
-    .input-box button { background: #6b4226; color: white; border: none; border-radius: 14px; padding: 0 20px; font-weight: 800; cursor: pointer; }
-    .stats-row { display: flex; gap: 10px; margin-bottom: 16px; }
-    .stat-card { flex: 1; background: #fdf6f0; border-radius: 14px; padding: 12px; text-align: center; border: 1.5px solid #f2cfbb; }
-    .stat-val { font-size: 20px; font-weight: 900; color: #6b4226; }
-    .stat-lbl { font-size: 10px; color: #8c5a3c; font-weight: 800; margin-top: 2px; }
-    .stamp-card { background: #fffcf9; border: 1.5px dashed #f2cfbb; border-radius: 18px; padding: 16px; text-align: center; margin-bottom: 16px; }
-    .stamp-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 14px 0; }
-    .stamp-box { background: #ffffff; border: 1.5px solid #f2cfbb; border-radius: 12px; height: 52px; display: flex; align-items: center; justify-content: center; font-size: 22px; }
-    .stamp-box.active { background: #e8f5e9; border-color: #28a745; }
-    .reward-badge { background: #fff0e6; border: 1px solid #f2cfbb; padding: 8px 12px; border-radius: 10px; font-size: 12px; color: #6b4226; font-weight: 700; display: inline-block; margin-top: 6px; }
-    .status-msg { text-align: center; font-size: 13px; color: #dc3545; font-weight: 700; margin-top: 8px; }
-    .hidden { display: none !important; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background-color: #6b4226; }
+    iframe { width: 100%; height: 100%; border: none; display: block; }
   </style>
 </head>
 <body>
 
-  <div class="app-card">
-    <div class="pwa-banner">
-      📲 <strong>Save App:</strong> Tap <strong>Share ⬆️</strong> or <strong>⋮</strong> & select <u>"Add to Home Screen"</u>!
-    </div>
-
-    <div class="header">
-      <h2>☕ Mama & Kakak Kafe</h2>
-      <p>Customer Loyalty Stamp Card</p>
-    </div>
-
-    <div class="input-box">
-      <input type="tel" id="custPhoneInput" placeholder="Enter Phone Number" onkeydown="if(event.key === 'Enter') checkStamps();" />
-      <button type="button" onclick="checkStamps()">Check</button>
-    </div>
-
-    <div id="statusMsg" class="status-msg hidden"></div>
-
-    <div id="memberCard" class="hidden">
-      <div style="text-align: center; margin-bottom: 14px;">
-        <span id="memberName" style="font-size: 20px; font-weight: 900; color: #6b4226;">Customer</span> 👋
-      </div>
-
-      <div class="stats-row">
-        <div class="stat-card">
-          <div id="visitCount" class="stat-val">0</div>
-          <div class="stat-lbl">TOTAL VISITS</div>
-        </div>
-        <div class="stat-card">
-          <div id="pointCount" class="stat-val">0</div>
-          <div class="stat-lbl">REWARD POINTS</div>
-        </div>
-      </div>
-
-      <div class="stamp-card">
-        <div style="font-weight: 800; font-size: 14px; color: #6b4226;">Drink Stamp Collection</div>
-        <div class="stamp-grid" id="stampGrid"></div>
-        <div class="reward-badge" id="rewardGoalBadge">🎁 <strong>10 Stamps = Free Drink!</strong></div>
-      </div>
-
-      <div style="text-align: center; font-size: 12px; background: #e8f5e9; padding: 12px; border-radius: 12px; color: #2e7d32; font-weight: 700;">
-        🎉 Show your phone number at the counter to collect stamps!
-      </div>
-    </div>
-  </div>
+  <!-- EMBED YOUR GOOGLE APPS SCRIPT WEB APP -->
+  <iframe 
+    src="https://script.google.com/macros/s/AKfycbyDNzQoW7EgdDi0yDKGmpK5rQ1A4cg0YExHG96teyD9M9n7wTqZqkWBW0-Rcwh0PUGfOw/exec" 
+    allow="geolocation; microphone; camera; clipboard-write; autoplay"
+    sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-modals"
+  ></iframe>
 
   <script>
-    // 🎯 GOOGLE APPS SCRIPT WEB APP URL
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyDNzQoW7EgdDi0yDKGmpK5rQ1A4cg0YExHG96teyD9M9n7wTqZqkWBW0-Rcwh0PUGfOw/exec";
-
-    function checkStamps() {
-      var phone = document.getElementById('custPhoneInput').value.trim();
-      var msg = document.getElementById('statusMsg');
-      var card = document.getElementById('memberCard');
-      
-      if (!phone) {
-        msg.innerText = "Please enter your phone number.";
-        msg.classList.remove('hidden');
-        return;
-      }
-
-      msg.innerText = "Checking stamps... ⏳";
-      msg.classList.remove('hidden');
-      msg.style.color = "#8c5a3c";
-
-      fetch(APPS_SCRIPT_URL + "?phone=" + encodeURIComponent(phone))
-        .then(res => res.json())
-        .then(res => {
-          if (res.success) {
-            msg.classList.add('hidden');
-            document.getElementById('memberName').innerText = res.name;
-            document.getElementById('visitCount').innerText = res.visits;
-            document.getElementById('pointCount').innerText = res.points;
-            renderStamps(res.stamps);
-            card.classList.remove('hidden');
-          } else {
-            msg.innerText = res.message;
-            msg.style.color = "#dc3545";
-            card.classList.add('hidden');
-          }
-        })
-        .catch(err => {
-          msg.innerText = "Connection error. Try again.";
-          msg.style.color = "#dc3545";
-        });
-    }
-
-    function renderStamps(count) {
-      var grid = document.getElementById('stampGrid');
-      grid.innerHTML = '';
-      var total = 10;
-      var activeCount = count % total;
-      if (count > 0 && activeCount === 0) activeCount = 10;
-
-      for (var i = 1; i <= total; i++) {
-        var box = document.createElement('div');
-        box.className = 'stamp-box' + (i <= activeCount ? ' active' : '');
-        box.innerText = i <= activeCount ? '☕' : '⚪';
-        grid.appendChild(box);
-      }
-
-      var remaining = total - activeCount;
-      var badge = document.getElementById('rewardGoalBadge');
-      if (remaining === 0) {
-        badge.innerHTML = "🎉 <strong>CONGRATS! You unlocked a FREE DRINK!</strong>";
-        badge.style.background = "#e8f5e9";
-        badge.style.color = "#2e7d32";
-      } else {
-        badge.innerHTML = "🎁 Collect <strong>" + remaining + " more stamp" + (remaining > 1 ? "s" : "") + "</strong> for a Free Drink!";
-        badge.style.background = "#fff0e6";
-        badge.style.color = "#6b4226";
-      }
-    }
-
     // Register Service Worker for PWA
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('sw.js?v=1')
-          .then(reg => {
-            console.log('Loyalty PWA Service Worker Registered!', reg);
-            reg.update();
-          })
-          .catch(err => console.error('Service Worker Failed:', err));
+          .then(reg => console.log('Loyalty PWA Registered!', reg))
+          .catch(err => console.error('Service Worker Registration Failed:', err));
       });
     }
   </script>
-
 </body>
 </html>
